@@ -7,4 +7,12 @@ body {
   min-height: 100vh;
   margin: 0;
   font-family: "Inter", sans-serif;
+  
+}
+#tasklist::-webkit-scrollbar{
+  display:none;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* makes it visible on dark bg */
+  cursor: pointer;
 }
