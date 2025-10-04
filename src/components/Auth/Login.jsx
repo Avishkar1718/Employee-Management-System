@@ -1,13 +1,15 @@
+import React from "react";
+import { useState } from "react";
 
-import React from 'react'
-import { useState } from 'react'
-
-function Login() {
-  const [email, setEmail] = useState("")
-  const  [password, setPassword] = useState("")
+function Login({ handleLogin }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
-  }
+    handleLogin(email, password);
+    setEmail("");
+    setPassword("");
+  };
   return (
     // <div className="flex h-screen w-screen items-center justify-center">
     //   <div className="border-2 rounded-xl border-emerald-600 p-20">
@@ -87,4 +89,4 @@ function Login() {
   );
 }
 
-export default Login
+export default Login;
