@@ -1,6 +1,12 @@
-import React from 'react'
+import React from "react";
 
-function Header({name}) {
+function Header({ name }) {
+  const logOutUser = () => {
+    localStorage.setItem("loggedInUser", "");
+
+    window.location.reload();
+    localStorage.clear();
+  };
   return (
     // <div className="flex items-end justify-between">
     //   <h1 className="text-2xl font-medium text-white">
@@ -19,13 +25,16 @@ function Header({name}) {
       <h1 className="text-2xl font-medium text-gray-200">
         Hello,
         <br />
-        <span className="text-3xl font-bold text-white">{ name}👋</span>
+        <span className="text-3xl font-bold text-white">{name}👋</span>
       </h1>
-      <button className="bg-red-500 hover:bg-red-600 transition-all text-lg font-semibold text-white px-5 py-2 rounded-lg shadow-md">
+      <button
+        onClick={logOutUser}
+        className="bg-red-500 hover:bg-red-600 transition-all text-lg font-semibold text-white px-5 py-2 rounded-lg shadow-md"
+      >
         Log Out
       </button>
     </div>
   );
 }
 
-export default Header
+export default Header;

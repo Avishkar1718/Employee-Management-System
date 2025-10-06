@@ -40,10 +40,10 @@ function App() {
           "loggedInUser",
           JSON.stringify({ role: "employee", data: employee })
         );
+      } else {
+        alert("Invalid credentials");
       }
-    } else {
-      alert("Invalid credentials");
-    }
+    } 
   }
   
  

@@ -10,7 +10,7 @@ function EmployeeDashboard({ currentEmployee }) {
     <div className="p-10 h-screen">
       <Header name={currentEmployee.firstName} />
       <TasksCount taskCounts={currentEmployee.taskCounts} />
-      <TaskList />
+      <TaskList tasks={currentEmployee.tasks} />
     </div>
   );
 }
