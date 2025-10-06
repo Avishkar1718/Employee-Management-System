@@ -9,24 +9,34 @@ import { getLocalStorage, setLocalStorage } from "./utils/LocalStorage";
 import { AuthContext } from "./context/AuthContextProvider";
 
 function App() {
-  // useEffect(() => {
-  //   setLocalStorage();
-  //   getLocalStorage();
-  // }, []);
+ 
   const [user, setUser] = useState(null)
+  const [loggedInUserData, setLoggedInUserData] = useState(null);
+  const Authdata = useContext(AuthContext);
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("loggedInUser");
+
+    if (loggedInUser) {
+      const userData = JSON.parse(loggedInUser);
+      setUser(userData.role);
+      setLoggedInUserData(userData.data);
+    }
+  }, []);
   const handleLogin = (email, password) => {
     if (email === "admin@gmail.com" && password === "123") {
-      setUser("admin");
+     setUser("admin");
+     localStorage.setItem("loggedInUser", JSON.stringify({ role: "admin" }));
     }
-    else if (email === "employee@gmail.com" && password === "123") {
+    else if (Authdata && Authdata.employees.find((e)=>email==e.email)) {
       setUser("employee")
     }
     else {
       alert("Invalid credentials")
     }
   }
-  const auth = useContext(AuthContext)
-  console.log(auth);
+  
+ 
   
   return (
     <>
