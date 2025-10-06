@@ -25,14 +25,24 @@ function App() {
   }, []);
   const handleLogin = (email, password) => {
     if (email === "admin@gmail.com" && password === "123") {
-     setUser("admin");
-     localStorage.setItem("loggedInUser", JSON.stringify({ role: "admin" }));
-    }
-    else if (Authdata && Authdata.employees.find((e)=>email==e.email)) {
-      setUser("employee")
-    }
-    else {
-      alert("Invalid credentials")
+      setUser("admin");
+      localStorage.setItem("loggedInUser", JSON.stringify({ role: "admin" }));
+    } else if (Authdata) {
+      const employee = Authdata.employees.find(
+        (e) => email == e.email && e.password == password
+      );
+      console.log(employee);
+      
+      if (employee) {
+        setUser("employee");
+        setLoggedInUserData(employee);
+        localStorage.setItem(
+          "loggedInUser",
+          JSON.stringify({ role: "employee", data: employee })
+        );
+      }
+    } else {
+      alert("Invalid credentials");
     }
   }
   
@@ -41,7 +51,7 @@ function App() {
   return (
     <>
       {!user ? <Login handleLogin={handleLogin } />: " "}
-      {user==="employee"?<EmployeeDashboard/>:<AdminDashboard/>}
+      {user==="admin"?<AdminDashboard/>:(user == 'employee' ? <EmployeeDashboard  currentEmployee={loggedInUserData} /> : null)}
      
     </>
   );

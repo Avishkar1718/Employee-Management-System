@@ -3,14 +3,16 @@ import Header from '../../others/Header'
 import TasksCount from '../../others/TasksCount'
 import TaskList from '../TaskList/TaskList'
 
-function EmployeeDashboard() {
+function EmployeeDashboard({ currentEmployee }) {
+  console.log(currentEmployee);
+  
   return (
-    <div className='p-10 h-screen'>
-      <Header />
-      <TasksCount />
-      <TaskList/>
+    <div className="p-10 h-screen">
+      <Header name={currentEmployee.firstName} />
+      <TasksCount taskCounts={currentEmployee.taskCounts} />
+      <TaskList />
     </div>
-  )
+  );
 }
 
 export default EmployeeDashboard
