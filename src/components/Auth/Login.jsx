@@ -78,12 +78,7 @@ function Login({ handleLogin }) {
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-200 mt-6">
-          Don’t have an account?{" "}
-          <a href="#" className="text-emerald-300 hover:underline">
-            Sign up
-          </a>
-        </p>
+        
       </div>
     </div>
   );

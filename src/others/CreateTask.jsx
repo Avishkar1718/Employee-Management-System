@@ -1,15 +1,17 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContextProvider";
+import Login from "../components/Auth/Login";
 
 const CreateTask = () => {
-  const userData = useContext(AuthContext);
+  const { userData, setUserData } = useContext(AuthContext);
 
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [taskDate, setTaskDate] = useState("");
   const [asignTo, setAsignTo] = useState("");
   const [category, setCategory] = useState("");
-
+     const updatedData = { ...userData };
+    
   const submitHandler = (e) => {
     e.preventDefault();
 
@@ -24,19 +26,37 @@ const CreateTask = () => {
       completed: false,
     };
     console.log(createdTask);
+    console.log(userData.employees);
+    
 
-    const user = userData.employees.find((elem) => elem.firstName === asignTo);
+    const user = updatedData.employees.find((elem) => elem.firstName === asignTo);
 
     if (user) {
       user.tasks.push(createdTask);
       user.taskCounts.newTask++;
       console.log(userData.employees);
-
-       localStorage.setItem("employees", JSON.stringify(userData.employees));
+      setUserData( updatedData);
+      //  localStorage.setItem("employees", JSON.stringify(userData.employees));
     } else {
       alert("Employee is not found");
     }
     console.log(user);
+
+    // const updatedEmployees = userData.employees.map((emp) =>
+    //   emp.firstName === asignTo
+    //     ? {
+    //         ...emp,
+    //         tasks: [...emp.tasks, createdTask],
+    //         taskCounts: {
+    //           ...emp.taskCounts,
+    //           newTask: emp.taskCounts.newTask + 1,
+    //         },
+    //       }
+    //     : emp
+    // );
+    
+    console.log("updated user data",userData);
+    
 
     // userData.employees.forEach(function (elem) {
     //   if (asignTo == elem.firstName) {
@@ -94,17 +114,30 @@ const CreateTask = () => {
 
           <div>
             <h3 className="text-sm text-gray-300 mb-1">Assign to</h3>
-            <input
-              className="text-sm py-2 px-3 w-full rounded-md outline-none bg-[#0f172a] border border-[#334155] focus:border-emerald-500 text-white placeholder-gray-300 transition mb-4"
-              type="text"
-              placeholder="employee name"
-              value={asignTo}
-              onChange={(e) => {
-                setAsignTo(e.target.value);
-              }}
-            />
-          </div>
+            <div className="relative">
+              <select
+                className="text-sm py-2 px-3 w-full rounded-md outline-none 
+                 bg-[#0f172a] border border-[#334155] focus:border-emerald-500 
+                 text-white placeholder-gray-300 transition mb-4 
+                 appearance-none overflow-hidden truncate"
+                value={asignTo}
+                onChange={(e) => setAsignTo(e.target.value)}
+                required
+              >
+                <option value="">Select employee</option>
+                {userData.employees.map((emp) => (
+                  <option key={emp.id} value={emp.firstName}>
+                    {emp.firstName}
+                  </option>
+                ))}
+              </select>
 
+              {/* Small dropdown arrow (custom look) */}
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                ▼
+              </span>
+            </div>
+          </div>
           <div>
             <h3 className="text-sm text-gray-300 mb-1">Category</h3>
             <input

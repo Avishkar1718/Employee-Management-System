@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContextProvider";
 
 function AllTask() {
-  const userData = useContext(AuthContext);
+  const { userData } = useContext(AuthContext);
   console.log(userData);
   
   return (

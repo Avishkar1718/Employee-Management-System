@@ -4,7 +4,7 @@ import NewTask from "./NewTask";
 import CompleteTask from "./CompleteTask";
 import FailedTask from "./FailedTask";
 
-function TaskList({tasks}) {
+function TaskList({tasks,data}) {
   return (
     // <div
     //   id="tasklist"
@@ -148,16 +148,16 @@ function TaskList({tasks}) {
         <div id='tasklist' className='h-[50%] overflow-x-auto flex items-center justify-start gap-5 flex-nowrap w-full py-1 mt-16'>
             {tasks.map((elem, idx) => {
                 if (elem.active) {
-                    return <AcceptTask key={idx} data={elem} />
+                    return <AcceptTask key={idx} data={elem} currentEmployee={data } />
                 }
                 if (elem.newTask) {
-                    return <NewTask key={idx} data={elem} />
+                    return <NewTask key={idx} data={elem}  currentEmployee={data }/>
                 }
                 if (elem.completed) {
-                    return <CompleteTask key={idx} data={elem} />
+                    return <CompleteTask key={idx} data={elem}  currentEmployee={data }/>
                 }
                 if (elem.failed) {
-                    return <FailedTask key={idx} data={elem} />
+                    return <FailedTask key={idx} data={elem}  currentEmployee={data }/>
                 }
 
             })}

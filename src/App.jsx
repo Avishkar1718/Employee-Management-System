@@ -12,7 +12,7 @@ function App() {
  
   const [user, setUser] = useState(null)
   const [loggedInUserData, setLoggedInUserData] = useState(null);
-  const Authdata = useContext(AuthContext);
+  const { userData:Authdata } = useContext(AuthContext);
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem("loggedInUser");
