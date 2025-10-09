@@ -1,47 +1,48 @@
-import React from 'react'
+import React, { useContext } from "react";
+import { AuthContext } from "../context/AuthContextProvider";
 
 function AllTask() {
+  const userData = useContext(AuthContext);
+  console.log(userData);
+  
   return (
-    <div className="bg-[#1e293b] p-6 rounded-xl mt-5 shadow-lg h-53 overflow-y-auto border border-[#334155]">
-      <h2 className="text-lg font-semibold mb-4 text-gray-100">All Tasks</h2>
+    <div className="bg-[#1e293b] p-6 rounded-xl mt-5 shadow-lg  border border-[#334155]">
+      <div className="border-4 text-white bg-emerald-600 border-emerald-500 mb-2 py-2 px-4 flex justify-between rounded">
+        <h2 className="text-lg font-medium w-1/5">Employee Name</h2>
+        <h3 className="text-lg font-medium w-1/5">New Task</h3>
+        <h5 className="text-lg font-medium w-1/5">Active Task</h5>
+        <h5 className="text-lg font-medium w-1/5">Completed</h5>
+        <h5 className="text-lg font-medium w-1/5">Failed</h5>
+      </div>
 
-      <div className="space-y-3">
-        {/* Pending */}
-        <div className="bg-red-500/20 border border-red-500/40 hover:bg-red-500/30 transition p-3 flex justify-between items-center rounded-md shadow-sm">
-          <h2 className="font-medium text-gray-200">Sarthak</h2>
-          <h3 className="text-sm text-gray-300">Make UI design</h3>
-          <span className="text-xs font-semibold text-red-300 bg-red-900/50 px-2 py-1 rounded">
-            Pending
-          </span>
-        </div>
-
-        {/* In Progress */}
-        <div className="bg-yellow-500/20 border border-yellow-500/40 hover:bg-yellow-500/30 transition p-3 flex justify-between items-center rounded-md shadow-sm">
-          <h2 className="font-medium text-gray-200">Rahul</h2>
-          <h3 className="text-sm text-gray-300">API Integration</h3>
-          <span className="text-xs font-semibold text-yellow-300 bg-yellow-900/50 px-2 py-1 rounded">
-            In Progress
-          </span>
-        </div>
-
-        {/* Completed */}
-        <div className="bg-green-500/20 border border-green-500/40 hover:bg-green-500/30 transition p-3 flex justify-between items-center rounded-md shadow-sm">
-          <h2 className="font-medium text-gray-200">Anjali</h2>
-          <h3 className="text-sm text-gray-300">Testing</h3>
-          <span className="text-xs font-semibold text-green-300 bg-green-900/50 px-2 py-1 rounded">
-            Completed
-          </span>
-        </div>
-        <div className="bg-green-500/20 border border-green-500/40 hover:bg-green-500/30 transition p-3 flex justify-between items-center rounded-md shadow-sm">
-          <h2 className="font-medium text-gray-200">Anjali</h2>
-          <h3 className="text-sm text-gray-300">Testing</h3>
-          <span className="text-xs font-semibold text-green-300 bg-green-900/50 px-2 py-1 rounded">
-            Completed
-          </span>
-        </div>
+      <div className="">
+        {userData.employees.map(function (elem, idx) {
+          return (
+            <div
+              key={idx}
+              className="border-2 border-emerald-500 mb-2 py-2 px-4 flex justify-between rounded"
+            >
+              <h2 className="text-lg font-medium  w-1/5 text-white">
+                {elem.firstName}
+              </h2>
+              <h3 className="text-lg font-medium w-1/5 text-blue-400">
+                {elem.taskCounts.newTask}
+              </h3>
+              <h5 className="text-lg font-medium w-1/5 text-yellow-400">
+                {elem.taskCounts.active}
+              </h5>
+              <h5 className="text-lg font-medium w-1/5 text-white">
+                {elem.taskCounts.completed}
+              </h5>
+              <h5 className="text-lg font-medium w-1/5 text-red-600">
+                {elem.taskCounts.failed}
+              </h5>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
 }
 
-export default AllTask
+export default AllTask;
